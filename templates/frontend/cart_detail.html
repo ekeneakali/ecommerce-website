@@ -1,0 +1,202 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+        Cart-page
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+<br><br>
+
+Total Length :: {{request.session.cart|length}}
+
+Cart Detail:
+
+<!--Body Content-->
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Your cart</h1></div>
+          </div>
+    </div>
+    <!--End Page Title-->
+    {% if messages %}
+    {% for mes in messages %}
+        <div class="alert alert-success">{{mes}}</div>
+    {% endfor %}
+{% endif %}
+<br>
+{% if request.session.cart.items %}
+<div class="alert alert-success text-uppercase" role="alert">
+    <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've got free shipping!
+</div>
+    
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Product Name</th>
+            <th>Images</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if request.session.cart.items %}       
+        {% for key,value in request.session.cart.items %}
+        <tr>
+            <td>{{value.name}}</td>
+            <td><a href="{% url 'frontend:two' value.product_id %}"><img class="cart__image" src="{{value.image}}" alt="{{value.name}}" title="{{value.name}}" width="150px" height="150px"></a></td>
+            <td class="cart__price-wrapper cart-flex-item">
+                <span class="money">₦{{value.price}}.00</span>
+            </td>
+            <td class="cart__update-wrapper cart-flex-item text-right">
+                <div class="cart__qty text-center">
+                    <div class="qtyField">
+                        <a class="qtyBtn minus" href="{% url 'frontend:item_decrement'  value.product_id  %}"><i class="icon icon-minus"></i></a>
+                        <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="{{value.quantity}}" pattern="[0-9]*">
+                        <a class="qtyBtn plus" href="{% url 'frontend:item_increment' value.product_id %}"><i class="icon icon-plus"></i></a>
+                    </div>
+                </div>
+            </td>
+            
+            <td>
+                <div><span class="money">₦{{ value.price|multiply:value.quantity }}</span></div>
+            </td>
+            <td class="text-center small--hide"><a href="{% url 'frontend:item_clear' value.product_id %}" class="btn btn--secondary cart__remove" title="Remove item"><i class="icon icon anm anm-times-l"></i></a></td>
+        </tr>
+
+        
+        {% endfor %}
+
+        {% endif %}
+        </tbody>
+        <tfoot>
+
+            <tfoot>
+                <tr>
+                    <form action="#" method="post" class="cart style2"></form>
+                    <td colspan="3" class="text-left"><a href="{% url 'frontend:shop' %}" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> Continue shopping</a></td>
+                    
+                    <form action="">
+                        {% csrf_token %}
+                        
+                        <a href=""><td colspan="3" class="text-right"><button type="submit" name="update" class="btn--link cart-update"><i class="fa fa-refresh"></i> Update</button></td></a>
+                         
+                        
+                    </form>
+                </tr>
+            </tfoot>
+        
+
+    </table>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                <h5>Discount Codes</h5>
+                <form action="{% url 'frontend:cart_coupon' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="address_zip">Enter your coupon code if you have one.</label>
+                        <input type="text" name="coupon">
+                    </div>
+                    <div class="actionRow">
+                        <div><input type="submit" class="btn btn-secondary btn--small" value="Apply Coupon"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
+                <h5>Estimate Shipping and Tax</h5>
+                <form action="{% url 'frontend:estimate_shipping' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="address_country">Country</label>
+                        <input type="text" id="address_zip" name="country">
+                    </div>
+
+                    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" id="address_zip" name="state">
+                    </div>
+                    <div class="form-group">
+                        <label for="address_zip">Postal/Zip Code</label>
+                        <input type="text" id="address_zip" name="postal">
+                    </div>
+
+                    <div class="actionRow">
+                        <div><input type="submit" class="btn btn-secondary btn--small" value="Calculate shipping"></div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                <div class="solid-border">	
+                  <div class="row border-bottom pb-2">
+                    <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
+                    {% if request.session.cart.items %}
+                    <span class="col-12 col-sm-6 text-right"><span class="money">₦{{cart_total_amount}}</span></span>
+                    {% endif %}
+                  </div>
+                  <div class="row border-bottom pb-2 pt-2">
+                    <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
+                    <span class="col-12 col-sm-6 text-right">₦2000</span>
+                  </div>
+                  <div class="row border-bottom pb-2 pt-2">
+                    <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
+                    <span class="col-12 col-sm-6 text-right">Free shipping</span>
+                  </div>
+                  <div class="row border-bottom pb-2 pt-2">
+                    <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
+                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">₦{{cart_total_amount|add:'2000'}}.0</span></span>
+                  </div>
+                  <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                  <p class="cart_tearm">
+                    <label>
+                      <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                      I agree with the terms and conditions
+                    </label>
+                  </p>
+                  <a href="{% url 'frontend:checkout' %}" id="cartCheckout" class="btn btn--small-wide checkout">Proceed To Checkout</a>
+                  <!-- <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout" disabled="disabled"> -->
+                  <div class="paymnet-img"><img src="{% static 'frontend/assets/images/payment-img.jpg' %}" alt="Payment"></div>
+                  <p><a href="#;">Checkout with Multiple Addresses</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>
+
+</div>
+{% else %}
+            <center>
+                <p>
+                    <img src="{% static 'frontend/assets/images/cart.png' %}" height="200px" width="200px" alt="">
+
+                </p>
+                <p>
+                    <h3>Your cart is currently empty ! </h3>
+
+                </p>
+                <a href="{% url 'frontend:shop' %}" style="background-color: blue;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;">Return to shop</a>
+            </center>
+            {% endif %}
+    {% endblock %}
+    
+    

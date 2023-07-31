@@ -1,0 +1,70 @@
+    {% extends 'frontend/base.html' %}
+
+    {% load static %}
+    
+    {% block title %}
+        orderby
+    {% endblock %}
+
+{% block content %}
+
+
+{% if messages %}
+    {% for mes in messages %}
+        <div class="alert alert-success">{{mes}}</div>
+    {% endfor %}
+{% endif %}
+
+
+    
+<center>
+	<p>
+		<button onclick="ExportToExcel('xlsx')" style="background-color: #4CAF50;
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;"><i class="fa fa-download"></i> Download</button>
+	</p>
+</center><br>
+<table class="table table-bordered" id="tbl_exporttable_to_xls" border="1">
+
+	<tr>
+		<th>Images</th>
+		<th>Quantity</th>
+		<th>SubTotal</th>
+
+	</tr>
+	
+	<tr>
+		
+		<td><img src="{{race.image.url}}" alt="img" height="100px" width="100px"></td>
+		<td>1</td>
+		<td>${{ race.price }}</td>
+		
+	</tr>
+	
+
+</table> <br>
+
+				<center>
+					<h2>Thank you for your puchase an email will be sent containing your order</h2>
+				</center>
+<script>
+	function ExportToExcel(type, fn, dl) {
+   var elt = document.getElementById('tbl_exporttable_to_xls');
+   var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+   return dl ?
+	 XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+	 XLSX.writeFile(wb, fn || ('MyOrder.' + (type || 'xlsx')));
+}
+
+</script>	   
+
+        
+{% endblock %}
+

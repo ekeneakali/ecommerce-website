@@ -1,0 +1,55 @@
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Sellers Guideline
+
+{% endblock %}
+
+  {% block content %}
+
+  <div id="page-content"><br><br>
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Sellers Guideline</h1></div>
+          </div>
+    </div>
+    <!--Body Content-->
+          
+        <center>
+          <div class="container border">
+            <div class="row d-flex justify-content-center">
+              <div class="card-inner">
+                1. All Shipping and logistic are being handle by you as a seller <br> <br>
+
+                2. Always give a free Shipping return <br> <br>
+
+                3. 10% percent commission are being deducted from every sale <br> <br>
+
+                4. Fund must be clear from account before shipping <br> <br>
+
+                5. Do not sell contraband product <br><br>
+
+                6. all product except food and liquid must be refundable 30 days after purchase <br><br>
+
+                7. Please upload your government id or business license as a sellers profile  <br>
+
+                <a href="{% url 'frontend:add_post' %}" class="css-button">Continue</a>
+
+                
+                
+
+              
+
+              </div>
+               
+
+            </div>
+          </div>
+        </center>
+    <!--End Body Content-->
+    
+    {% endblock %}
+    

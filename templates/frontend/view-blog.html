@@ -1,0 +1,63 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+        Edit blog post
+    {% endblock %}
+    
+
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Edit Blog</h1></div>
+          </div>
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Images</th>
+            <th colspan="3"></th>
+        </tr>
+        {% if post %}
+            {% for x in post %}
+
+        <tr>
+            
+            <td>{{x.name}}</td>
+            <td><img src="{{x.image.url}}" alt="img" width="150px" class="150px"></td>
+            <td><a href="{% url 'frontend:blog_two' x.id %}" class="btn btn-primary"><i class="fa fa-eye"></i>View</a></td>
+            <td><a href="{% url 'frontend:edit_blog' x.id %}" class="btn btn-primary"><i class="fa fa-edit"></i>Edit</a></td>
+            <td><a href="{% url 'frontend:delete_blog' x.id %}" class="btn btn-primary"><i class="fa fa-trash"></i>Delete</a></td>
+
+
+            
+            
+        
+        </tr>
+        {% endfor %}
+        {% else %}
+            <center>
+                <h3>No post to Edit</h3>
+            </center>
+        {% endif %}
+    
+        
+        
+
+    </table>
+    
+    <!--End Body Content-->
+    {% endblock %}
+    
+    

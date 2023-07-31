@@ -1,0 +1,56 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+    Advertisement
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+        
+            
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Advertisement</h1></div>
+          </div>
+    </div>
+
+    <div class="container">
+        <h2>Advertisement Policy</h2>
+        <div class="card">
+          <div class="card-body">
+            Dear Sirs & Madams,
+
+            Thanks for your interest in advertising on Belletrade!
+            
+            Kindly send an e-mail to belletrade55@gmail.com.
+            
+            Or call/whatsapp <a href="">+2348080524832</a> 
+            
+            We’ll inform you on payment modalities after verifying that your product is suitable for promotion on Belletrade.
+            
+            *All ads on Belletrade.net are prepaid
+            
+            We do look forward to a lasting business relationship with you.
+            
+            
+          </div>
+        </div>
+      </div>
+      
+        
+    <!--End Body Content-->
+
+    
+    {% endblock %}
+    
+    

@@ -1,0 +1,68 @@
+{% extends 'frontend/base.html' %}
+
+    {% load static %}
+    
+    {% block title %}
+        Order Page
+    {% endblock %}
+    {% load cart_tag %}
+
+{% block content %}
+
+
+    <center>
+
+                    <h3 class="btn btn-primary">Your Order</h3>
+        
+            <table class="table table-bordered">
+                
+                <tr>
+                    <th>Buyers Name</th>
+                    <th>Order ID</th>
+                    <th>Product Name</th>
+                    <th>images</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+        {% if request.session.cart.items %}       
+        {% for key,value in request.session.cart.items %}
+                <tr>
+                    <td>
+                        
+                        {% if post %}
+                        {% for x in post %}
+                                  {{x.first_name}}  
+                                    {% endfor %}
+                                        {% else %}
+                                        <h3>you have not place an  order</h3>
+                                    {% endif %}
+              
+                    
+                        
+                    </td>
+                    <td>{{value.product_id}}</td>
+                    <td>{{value.name}}</td>
+                    <td><img src="{{value.image}}" alt="img" height="150px" width="150px"></td>
+                    <td>{{value.quantity}}</td>
+                    <td>${{ value.price|multiply:value.quantity }}</td>
+                    
+                </tr>
+                {% endfor %}
+
+                {% else %}
+
+                <center>
+                    <h3>You don't have an Order</h3>
+                </center>
+                    
+                {% endif %}
+
+            </table>
+    
+        
+
+    </center>
+
+{% endblock %}
+    
+    

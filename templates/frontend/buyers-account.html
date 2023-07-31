@@ -1,0 +1,64 @@
+    {% extends 'frontend/base.html' %}
+
+    {% load static %}
+    
+    {% block title %}
+        Buyers Account
+    {% endblock %}
+
+{% block content%}
+    <!--Body Content-->
+    {% if messages %}
+        {% for mes in messages %}
+            <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+    <div id="page-content"><br><br><br><br>
+    	<!--Page Title-->
+    	<div class="page section-header text-center">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Buyers Account</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+                	<div class="mb-4">
+                       
+                        <form method="post" action="#" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">
+                            {% csrf_token%}
+                                
+                                 
+                              {% for field in form %}  
+                              
+                                {{ field.label_tag }}  
+                                {{ field }}  
+                                {% if field.help_text %}  
+                                  <small style="display: none ">{{ field.help_text }}</small>  
+                                {% endif %}  
+                                {% for error in field.errors %}  
+                                  <div style="color: red;"></div>  
+                                {% endfor %}  
+                               
+                              {% endfor %}
+                              
+                            <div class="row">
+                              <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                                  <input type="submit" class="btn mb-3" value="Submit">
+                              </div>
+                           </div>
+                            
+                     </form>
+                    </div>
+               	</div>
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+
+    {% endblock %}
+    
+    

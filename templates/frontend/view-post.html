@@ -1,0 +1,69 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+        Edit Page
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+        
+            
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">My Product</h1></div>
+          </div>
+    </div>
+
+    
+        <table class="table table-bordered">
+            <tr>
+                
+                <th>Images</th>
+                <th colspan="3"></th>
+            </tr>
+            {% if post %}
+                {% for x in post %}
+    
+                
+                <td><a href="{% url 'frontend:two' x.id %}"><img src="{{x.image.url}}" alt="img" width="150px" class="150px" title=""></a></td>
+                <td><a href="{% url 'frontend:two' x.id %}" class="btn btn-primary"><i class="fa fa-eye"></i>View</a></td>
+                <td><a href="{% url 'frontend:edit_post' x.id %}" class="btn btn-primary"><i class="fa fa-edit"></i>Edit</a></td>
+                <td><a href="{% url 'frontend:delete_post' x.id %}" class="btn btn-primary"><i class="fa fa-trash"></i>Delete</a></td>
+    
+    
+                
+                
+            
+            </tr>
+            {% endfor %}
+            {% else %}
+                <center>
+                    <h3>No Product in Your Store</h3><br>
+                    <p>
+                        <a href="{% url 'frontend:sellers_guideline' %}" class="btn btn-primary">AddProduct</a>
+                    </p>
+                </center>
+                
+            {% endif %}<br>
+        
+            
+            
+    
+        </table>
+    
+    <!--End Body Content-->
+
+    
+    {% endblock %}
+    
+    

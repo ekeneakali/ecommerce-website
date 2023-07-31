@@ -1,0 +1,105 @@
+
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Reply Page
+{% endblock %}
+
+  {% block content %}
+
+  {% if messages %}
+{% for mes in messages %}
+  <div class="alert alert-success">{{mes}}</div>
+{% endfor %}
+{% endif %}
+
+
+  <!--Page Title-->
+  <div class="page section-header text-center mb-0">
+    <div class="page-title">
+        <div class="wrapper"><h1 class="page-width">Comment Reply</h1></div>
+      </div>
+</div>
+<!--End Page Title-->
+    <!--Body Content-->
+    <div id="page-content">        
+        <!-- Lookbook Start -->
+        <div class="container">
+        	<div class="row">
+            	<div class="col-12 col-sm-12 col-md-12 col-lg-12">	
+        			<div class="empty-page-content text-center">
+                        
+                            <div class="blog-comment">
+                              <p><i class="fa fa-user"></i>{{ get_reply.name }}</p> 
+                              <p>{{ get_reply.comment }}</p>
+                              <p>Created:{{get_reply.created_at|timesince}} Ago</p>
+                              <a href="#" class="btn btn-primary">Reply {{reply|length}}</a> 
+                            </div>
+
+                            <p>
+                            {% for reply in reply %}
+                                <div class="blog-comment">
+                                    <p><i class="fa fa-user"></i>{{ reply.name }}</p> 
+                                    <p>{{ reply.comment }}</p>
+                                    <p>Created:{{reply.created_at|timesince}} Ago</p> 
+                                  </div>
+                             {% endfor %}
+                                  
+                            </p>
+
+                            {% if request.user.is_authenticated %}
+                          <form method="post" action="#" id="comment_form" accept-charset="UTF-8" class="comment-form">
+                            {% csrf_token %}
+                              <h2>Leave a Reply</h2>
+                              <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                    <input type="text" id="ContactFormName" name="name" placeholder="Name" value="" required="">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                    <input type="email" id="ContactFormEmail" name="email" placeholder="Email" value="" required="">                        	
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                  <label for="image">upload an image</label>
+                                  <div class="form-group">
+                                  <input type="file" id="ContactFormEmail" name="image" placeholder="upload an image" value="" required="">                        	
+                                  </div>
+                              </div>
+                                 -->
+                              </div>
+                              <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                    <textarea required="" rows="10" id="ContactFormMessage" name="comment" placeholder="Your Message"></textarea>
+                                    </div>
+                                </div>  
+                              </div>
+                              <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <!-- <p class="fine-print">Please note, comments must be approved before they are published</p> -->
+                                    <input type="submit" class="btn" value="Send Message">
+                                </div>
+                             </div>
+                         </form>
+                         {% else %}
+                         Please <a href="{% url 'frontend:custom_login' %}" class="btn btn-primary">Login</a> to Comment
+                         {% endif %}
+                        </div>
+                    </div>
+                </div><br><br>
+                            
+                      </div>
+        		</div>
+        	</div>
+        </div>
+        <!-- Lookbook Start -->
+    </div>
+    <!--End Body Content-->
+    
+    {% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    wishlist
+{% endblock %}
+{% load cart_tag %}
+
+{% block content %}
+    <center>
+        
+        <p><a href="#" class="btn btn-primary">YOUR WISHLIST</a></p>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Title</th>
+                <th>Images</th>
+                <th colspan="2"></th>
+                {% if favourite_post %}
+                {% for x in favourite_post %}
+            </tr>
+            <td>{{x.name}}</td>
+            <td><a href="{% url 'frontend:two' x.id %}"><img src="{{x.image.url}}" alt="img" width="200px" height="200px"></a></td>
+            <td><a href="{% url 'frontend:two' x.id %}" class="btn btn-primary">Go Back</a></td>
+            <td><a href="{% url 'frontend:cart_add' x.id %}" class="btn btn-primary"><i class="fa fa-shopping-cart">Add to cart</i></a></td>
+
+
+            <tr>
+
+            </tr>
+            {% endfor %}
+
+            {% else %}
+            <h3>Your wishlist is empty </h3>
+            {% endif %}
+        </table>
+        
+    </center>
+{% endblock %}
+
+

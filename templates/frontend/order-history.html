@@ -1,0 +1,77 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+    Order History
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+<br><br>
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">Order History</h1></div>
+          </div>
+    </div>
+
+    <center>
+      Click <a href="{% url 'frontend:buy_now_order' %}" class="btn btn-primary">Here</a> to check buy now Order
+    </center><br><br>
+
+    <table class="table table-bordered" id="tbl_exporttable_to_xls" border="1">
+      <tr>
+        <th>Order Id</th>
+        <th>Receipt Reference</th>
+        <th>Date Orderd </th>
+        <th colspan="2">Action</th>
+  
+      </tr>
+      {% if post %}
+        {% for x in post %}
+        
+      <tr>
+        
+            <td>{{x.id}}</td>
+            <td>{{x.uuid}}</td>
+            <td>{{x.created_at}} <br> {{x.created_at|timesince}} Ago</td>
+            <th><button onclick="ExportToExcel('xlsx')" class="btn btn-primary">Download <i class="fa fa-download"></i></button></th>
+            <th><a href="{% url 'frontend:orders' x.id %}" class="btn btn-primary">Delete<i class="fa fa-trash"></i></a></th>
+        
+      </tr>
+      {% endfor %}
+           {% else %}
+              <center>
+                  <h3>You dont have a Cart Order</h3>
+              </center>
+          {% endif %}
+        
+
+    </table>
+                    
+            
+  
+    <!--End Body Content-->
+
+    <script>
+      function ExportToExcel(type, fn, dl) {
+       var elt = document.getElementById('tbl_exporttable_to_xls');
+       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+       return dl ?
+       XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+       XLSX.writeFile(wb, fn || ('MyOrder.' + (type || 'xlsx')));
+    }
+    
+    </script>	   
+    
+    {% endblock %}
+    
+    

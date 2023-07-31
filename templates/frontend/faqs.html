@@ -1,0 +1,61 @@
+{% extends 'frontend/base.html' %}
+
+
+{% load static %}
+
+{% block title %}
+
+  Faqs Page
+{% endblock %}
+
+{% block content %}
+    <!--Body Content-->
+    <div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">FAQs</h1></div>
+      		</div>
+		</div>
+        <div class="container">
+        	<div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                	<div id="accordionExample">
+                        <h2 class="title h2">Payment and Returns</h2>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">What payment is accepted here?</h4>
+                            <div id="collapseOne" class="collapse panel-content" data-parent="#accordionExample">paypal, mastercard, visa, american express.</div>
+                        </div>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How do i make payment?</h4>
+                            <div id="collapseTwo" class="collapse panel-content">Pay via PayPal, Bank transfer, you can pay with your credit or debit card if you don't have a PayPal account.</div>
+                        </div>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">What are the return policy?</h4>
+                            <div class="panel-content collapse" id="collapseThree">all product except food and liquid are return or refundable 30 days after purchase.</div>
+                        </div>
+                        <h2 class="title h2">Shipping Method</h2>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">What is international shipping?</h4>
+                            <div class="panel-content collapse" id="collapseFour">International shipping is a means of transport used for conveying goods (mostly) using sea routes rather than roads (road transport) or air channels (air transport).</div>
+                        </div>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">What is local shipping?</h4>
+                            <div class="panel-content collapse" id="collapseFive">Local shipping service allows customers to buy your products online and have you deliver them straight to their doorstep. Local delivery serves as an alternative to shipping with a carrier, in-store shopping, or in-store pickup by offering you a way to deliver directly to customers.</div>
+                        </div>
+                        <div class="faq-body">
+                            <h4 class="panel-title" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">What is same day delivery?</h4>
+                            <div class="panel-content collapse" id="collapseSix">Same-day shipping means that a customer's order will ship out on the same day the order is placed. This can cut a day or two off delivery time versus retailers that wait to ship orders. Same-day delivery means the customer will receive their order on the same day it's placed.
+                                .</div>
+                        </div>
+                    </div>
+               	</div>
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+
+    {% endblock%}
+    
+    

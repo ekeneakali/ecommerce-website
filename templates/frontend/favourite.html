@@ -1,0 +1,42 @@
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Favourite
+{% endblock %}
+
+{% block content %}
+    <center>
+        
+        <p><a href="#" class="btn btn-primary">YOUR FAVOURITE</a></p>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Title</th>
+                <th>Images</th>
+                <th></th>
+            </tr>
+            {% if post %}
+            {% for x in post %}
+            <tr>
+                
+            <td>{{x.title}}</td>
+            <td><img src="{{x.image.url}}" alt="img" width="200px" height="200px"></td>
+            <td><a href="{% url 'frontend:blog_two' x.id %}" class="btn btn-primary">Go Back</a></td>
+            
+            
+
+            
+
+            </tr>
+            {% endfor %}
+            {% else %}
+            <h3>Your favorite is empty </h3>
+            {% endif %}
+        
+            
+        </table>
+        
+    </center>
+{% endblock %}

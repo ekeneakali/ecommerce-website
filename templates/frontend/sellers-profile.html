@@ -1,0 +1,46 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+    Sellers Profile
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+        
+            
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">sellers profile</h1></div>
+          </div>
+    </div>
+                <center>
+                    <div class="alert alert-success text-uppercase" role="alert">
+                        <i class="fa-check-circle"></i> &nbsp;<strong>Legit!</strong> Supplier!
+                    </div>
+                    
+                    <div class="container">
+                        <div class="card-body">
+                            <img src="{{post.government.url}}" alt="img" width="200px" height="200px">
+                        </div>
+                    </div>
+    
+                </center>
+                
+            
+        
+    <!--End Body Content-->
+
+    
+    {% endblock %}
+    
+    

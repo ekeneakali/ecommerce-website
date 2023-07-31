@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blog search</title>
+  <meta name="description" content="description">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ALERTIFY JS START HERE -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- ALERTIFY JS ENDS HERE -->
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'frontend/assets/images/favicon.png' %}" />
+<!-- Plugins CSS -->
+<link rel="stylesheet" href="{% static 'frontend/assets/css/plugins.css' %}">
+<!-- Bootstap CSS -->
+<link rel="stylesheet" href="{% static 'frontend/assets/css/bootstrap.min.css' %}">
+<!-- CSS only -->
+
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{% static 'frontend/assets/css/ekene.css' %}">
+<link rel="stylesheet" href="{% static 'frontend/assets/css/responsive.css' %}">
+
+</head>
+<body>
+  <form action="{% url 'frontend:result' %}" method="get" class="input-group search-header search" role="search" style="position: relative;">
+    <input class="search-header__input search__input input-group__field" type="q" name="q" placeholder="Search" aria-label="Search" autocomplete="off">
+    <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
+  </form>
+  
+  
+  <center>
+    {% if search %}
+    <h3>
+        {% with query.count as total_results %}
+        found{{ total_results }}
+        result{{ total_results|pluralize }}
+        {% endwith %}
+    </h3>
+     
+    {% for x in query %}
+      <div class="container">
+        <div class="row">
+            <p>
+              <div class="col-12 col-sm-12 col-md-4 col-lg-4 article">
+        
+                <!-- Article Image --> 
+                 <a class="article_featured-image" href="{% url 'frontend:blog_two' x.id %}"><img class="blur-up lazyload" data-src="{{x.image.url}}" height="200px" width="200px" src="{{x.image.url}}" alt="It's all about how you wear"></a> 
+                <h2 class="h3"><a href="{% url 'frontend:blog_two' x.id %}">{{x.title}}</a></h2>
+                <ul class="publish-detail">                      
+                    <li><i class="anm anm-user-al" aria-hidden="true"></i>Author::{{x.created_by}}</li>
+                    <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">Posted on::{{x.created_at}}</time></li>
+                </ul>
+                <div class="rte"> 
+                    <p>
+                      {{x.description}}
+                    </p>
+                     </div>
+                <p><a href="{% url 'frontend:blog_two' x.id %}" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
+            </div>
+            </p>
+
+          </div>
+
+        </div>
+      
+    
+    {% empty %}
+    {% endfor %}
+  
+    {% endif %}
+  
+    </center>
+  
+</body>
+</html>

@@ -1,0 +1,188 @@
+{% extends 'frontend/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Blog
+{% endblock %}
+
+
+{% block content %}
+    <!--Body Content-->
+    <div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center mb-0">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Blog</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+	    <div class="bredcrumbWrap">
+            <div class="container breadcrumbs">
+                <a href="{% url 'home' %}" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>Blog Gridview</span>
+            </div>
+        </div>
+        <div class="container">
+        	<div class="row">
+            	<!--Sidebar-->
+            	<div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
+                	<div class="sidebar_tags">
+                    	<div class="sidebar_widget categories">
+                            <div class="widget-title"><h2>Category</h2></div>
+                            <div class="widget-content">
+                              {% if request.user.is_authenticated %}
+                              <p>
+                                <span><a href="{% url 'frontend:blog_list' %}" style="margin: 10px;" class="btn btn-primary"><i class="fa fa-heart"></i>Favourite</a></span>
+                              </p>
+                              {% endif %}
+
+                                <ul class="sidebar_categories">
+                                	<li class="lvl-1 "><a href="http://annimexweb.com/" class="site-nav lvl-1">Beauty</a></li>
+                                    <li class="lvl-1  active"><a href="#" class="site-nav lvl-1">fashion</a></li>
+                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">summer</a></li>
+                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">trend</a></li>
+                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">winter</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Recent Posts</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                            <a class="grid-view-item__link" href="#">
+                                              {% for x in recent %}
+                                           <a href="{% url 'frontend:blog_two' x.id  %}">
+                                            <img class="grid-view-item__image blur-up lazyload" data-src="{{x.image.url}}" src="{{x.image.url}}" alt="img" />
+                                          </a>
+                                      </div>
+                                      <div class="details"> <a class="grid-view-item__title" href="#">{{x.title}}</a>
+                                        <div class="grid-view-item__meta"><span class="article__date"> <time datetime="2017-05-02T14:33:00Z">{{x.created_at}}</time></span></div>
+                                           </a>
+                                          {% endfor %}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                        <div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Recent Comments</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                          {% for x in comment %}
+                                            <a class="grid-view-item__link" href="#">
+                                                <img class="grid-view-item__image blur-up lazyload" data-src="assets/images/recent-commnet-img.jpg" src="images/recent-commnet-img.jpg" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="details">
+                                        	<a href="">
+                                            <div class="grid-view-item__meta"><strong>{{x.name}}</strong> On {{x.created_at}}</a></div>
+                                        	<a href="" class="grid-view-item__meta">{{x.comment}}</a>
+                                          </a>
+                                        {% endfor %}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                        <div class="sidebar_widget tags-clouds">
+                        	<div class="widget-title"><h2>Tags Cloud</h2></div>
+							<div class="widget-content">
+								<ul>
+                                	<li><a href="#">Fashion</a></li>
+                                    <li><a href="#">Clothes</a></li>
+                                    <li><a href="#">Shoes</a></li>
+                                    <li><a href="#">Jeans</a></li>
+                                    <li><a href="#">Furniture</a></li>
+                                    <li><a href="#">Sun Glasses</a></li>
+                                    <li><a href="#">Winter</a></li>
+                                    <li><a href="#">Autoparts</a></li>
+                                </ul>
+                          	</div>
+						</div>
+                    </div>
+                </div>
+                <!--End Sidebar-->
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+                	<div class="custom-search">
+                    {% include 'frontend/blog-search.html' %}
+                    
+                    <!-- <form action="" method="get" class="input-group search-header search" role="search" style="position: relative;">
+                      <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="Search" aria-label="Search" autocomplete="off">
+                      <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
+                  </form> -->
+                    </div>
+                    <div class="blog--list-view">
+                    	<div class="row">
+                        {% for x in page_obj %}
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 article">
+
+                                <!-- Article Image --> 
+                                 <a class="article_featured-image" href="{% url 'frontend:blog_two' x.id %}"><img class="blur-up lazyload" data-src="{{x.image.url}}" src="{{x.image.url}}" alt="It's all about how you wear"></a> 
+                                <h2 class="h3"><a href="{% url 'frontend:blog_two' x.id %}">{{x.title}}</a></h2>
+                                <ul class="publish-detail">                      
+                                    <li><i class="anm anm-user-al" aria-hidden="true"></i>  {{x.created_by}}</li>
+                                    <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{x.created_at}}</time></li>
+                                </ul>
+                                <div class="rte"> 
+                                    <p>
+                                      {{x.description}}
+                                    </p>
+                                     </div>
+                                <p><a href="{% url 'frontend:blog_two' x.id %}" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
+                            </div>
+                            {% endfor %}
+
+
+                            <div>
+                              <span>
+                                {% if page_obj.has_previous %}
+                                  <a href="?page={{page_obj.previous_page_number }}">Previous</a>
+                                  {% endif %}
+                                </span>
+                                  <span>
+                                    page {{ page_obj.number }} of {{page_obj.paginator.num_pages}}.
+                                  </span>
+                                  <span>
+                                    {% if page_obj.has_next %}
+                                      <a href="?page={{page_obj.next_page_number }}">Next</a>
+                                    {% endif %}
+                                  </span>
+                              
+                            </div>
+                          
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                        <hr/>
+                        <div class="pagination">
+                            
+                    	</div>
+                    </div>
+                </div>
+                <!--End Main Content-->
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+    {% endblock %}
+    

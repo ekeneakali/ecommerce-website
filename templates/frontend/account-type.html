@@ -1,0 +1,87 @@
+{% extends 'frontend/base.html' %} 
+
+{% load static %}
+
+    {% block title %}
+    Select Account
+    {% endblock %}
+    
+    {% load cart_tag %}
+{% block content %}
+{% if messages %}
+            {% for mes in messages %}
+                <div class="alert alert-success">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+        
+        
+            
+<div id="page-content">
+    <!--Page Title-->
+    <div class="page section-header text-center"><br>
+        <div class="page-title">
+            <div class="wrapper"><h1 class="page-width">select account</h1></div>
+          </div>
+    </div>
+                <center>
+                    <div class="alert alert-success text-uppercase" role="alert">
+                        <i class="fa-check-circle"></i> &nbsp;<strong>Legit!</strong> Supplier!
+                    </div>
+                    
+                    <div class="container">
+                        <div class="row">
+                            
+                            <div class="col-md-4">
+                                <a href="{% url 'frontend:sellers_account' %}" style="background-color: #4CAF50;
+                                border: none;
+                                color: white;
+                                padding: 15px 32px;
+                                text-align: center;
+                                text-decoration: none;
+                                display: inline-block;
+                                font-size: 16px;
+                                margin: 4px 2px;
+                                cursor: pointer;
+                                border-radius:10px">Seller</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'frontend:buyers_account' %}" style="background-color: #4CAF50;
+                                border: none;
+                                color: white;
+                                padding: 15px 32px;
+                                text-align: center;
+                                text-decoration: none;
+                                display: inline-block;
+                                font-size: 16px;
+                                margin: 4px 2px;
+                                cursor: pointer;
+                                border-radius: 10px;">Buyer</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'frontend:buyers_sellers_account' %}" style="background-color: #4CAF50;
+                                border: none;
+                                color: white;
+                                padding: 15px 32px;
+                                text-align: center;
+                                text-decoration: none;
+                                display: inline-block;
+                                font-size: 16px;
+                                margin: 4px 2px;
+                                cursor: pointer;
+                                border-radius: 10px;">Hybrid of Both</a>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+    
+                </center>
+                
+            
+        
+    <!--End Body Content-->
+
+    
+    {% endblock %}
+    
+    
